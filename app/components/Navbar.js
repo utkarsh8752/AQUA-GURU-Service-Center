@@ -2,19 +2,28 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { FaFacebook, FaTwitter, FaInstagram, FaBars, FaTimes } from "react-icons/fa";
 
 export default function Navbar() {
-
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Privacy Policy", path: "/privacy-policy" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
     <header className="sticky top-0 z-50">
-
+      
       {/* Top Bar */}
       <div className="bg-blue-700 text-white text-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-2">
-
+          
           <p className="font-bold">Working Hours: 8 AM - 8 PM</p>
 
           <p className="hidden md:block font-bold">
@@ -22,9 +31,9 @@ export default function Navbar() {
           </p>
 
           <div className="flex gap-3 text-lg">
-            <FaFacebook className="cursor-pointer" />
-            <FaTwitter className="cursor-pointer" />
-            <FaInstagram className="cursor-pointer" />
+            <FaFacebook className="cursor-pointer hover:text-gray-200" />
+            <FaTwitter className="cursor-pointer hover:text-gray-200" />
+            <FaInstagram className="cursor-pointer hover:text-gray-200" />
           </div>
 
         </div>
@@ -51,18 +60,27 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <ul className="hidden lg:flex gap-8 text-gray-700 font-medium">
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/services">Services</Link></li>
-            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            {navLinks.map((link) => (
+              <li key={link.path}>
+                <Link
+                  href={link.path}
+                  className={`transition ${
+                    pathname === link.path
+                      ? "text-blue-700 font-bold border-b-2 border-blue-700 pb-1"
+                      : "hover:text-blue-700"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
           </ul>
 
           {/* Phone Button */}
           <div className="hidden lg:block">
             <a
               href="tel:7499741546"
-              className="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800"
+              className="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition"
             >
               📞 Book Call
             </a>
@@ -83,15 +101,25 @@ export default function Navbar() {
           <div className="lg:hidden bg-white shadow-lg">
             <ul className="flex flex-col gap-4 p-6 text-gray-700 font-medium">
 
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/services">Services</Link></li>
-              <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
+              {navLinks.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    href={link.path}
+                    className={`block ${
+                      pathname === link.path
+                        ? "text-blue-700 font-bold"
+                        : "hover:text-blue-700"
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
 
               <a
                 href="tel:7499741546"
-                className="bg-blue-700 text-white text-center py-2 rounded-lg"
+                className="bg-blue-700 text-white text-center py-2 rounded-lg hover:bg-blue-800"
               >
                 📞 Book Call
               </a>
