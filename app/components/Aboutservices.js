@@ -19,7 +19,7 @@ function Aboutservices() {
                     </h2>
         
                     <p className="text-gray-600 mb-4">
-                      Aqua Smart RO Services is a trusted name for professional RO
+                      Aqua Guru Service Center is a trusted name for professional RO
                       water purifier repair and service across Mumbai, Navi Mumbai,
                       Thane, Mira Bhayandar,Virar.
                     </p>
